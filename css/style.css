@@ -39,6 +39,13 @@ body {
   min-height: 100vh;
 }
 
+#app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
 /* Top bar */
 .app-header {
   padding: calc(12px + var(--safe-top)) 16px 12px;
