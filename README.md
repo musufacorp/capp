@@ -38,6 +38,36 @@ capp/
 That's it — no server, no backend code. Firebase handles password
 storage, verification emails, and session tokens for you.
 
+## Teams / Outlook
+
+When the app is opened inside Microsoft Teams (as a tab) or Outlook, it
+skips the Firebase sign-in screen and drops straight into a **guest
+session** — see `js/host-detect.js`. This is host detection only, not
+single sign-on: no Teams/Outlook identity is captured, and bookmarks for
+guest sessions are shared per-host rather than per-person.
+
+- **Teams detection is reliable.** Teams hosts every tab (including a
+  plain "Website" tab that needs no manifest or app registration — just
+  paste the URL) in an iframe and answers the Teams JS SDK handshake.
+- **Outlook detection is best-effort.** Outlook has no equivalent
+  no-manifest handshake, so this falls back to user-agent sniffing,
+  which isn't guaranteed to catch every case.
+
+**If you want real Teams/Outlook single sign-on later** (so users are
+identified, not just anonymous guests), that requires infrastructure
+this repo doesn't set up for you:
+1. An Azure AD app registration exposed for SSO.
+2. A Teams app manifest (different from `manifest.json` — Teams-specific
+   schema, zipped with icons) declaring that AAD app, sideloaded or
+   published into Teams.
+3. An Outlook add-in manifest with `WebApplicationInfo`, sideloaded or
+   deployed via Centralized Deployment.
+
+Once you have the Azure AD client ID/tenant ID and those manifests
+sorted out, `host-detect.js` is the place to swap the guest bypass for a
+real `microsoftTeams.authentication` / `Office.context.auth` token
+acquisition.
+
 ## 2. Chatbot (already wired up)
 
 `index.html` now points at your live Microsoft Copilot Studio bot:
