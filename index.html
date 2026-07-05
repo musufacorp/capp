@@ -160,6 +160,7 @@
 
 <!-- ===================== BOOKMARKS SCREEN ===================== -->
 <main id="screen-bookmarks" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
   <div class="card">
     <h2>Saved Answers</h2>
     <div id="bookmark-list">
@@ -168,25 +169,156 @@
   </div>
 </main>
 
+<!-- ===================== MORE (TOOLS HUB) SCREEN ===================== -->
+<main id="screen-more" class="screen">
+  <div class="more-grid">
+    <button class="more-tile" data-screen="tasbih">
+      <span class="more-tile-icon">📿</span>Dhikr Counter
+    </button>
+    <button class="more-tile" data-screen="hadith">
+      <span class="more-tile-icon">📜</span>Hadith
+    </button>
+    <button class="more-tile" data-screen="names">
+      <span class="more-tile-icon">✨</span>99 Names
+    </button>
+    <button class="more-tile" data-screen="duas">
+      <span class="more-tile-icon">🤲</span>Duas
+    </button>
+    <button class="more-tile" data-screen="zakat">
+      <span class="more-tile-icon">🧮</span>Zakat Calculator
+    </button>
+    <button class="more-tile" data-screen="calendar">
+      <span class="more-tile-icon">🗓️</span>Hijri Calendar
+    </button>
+    <button class="more-tile" data-screen="bookmarks">
+      <span class="more-tile-icon">🔖</span>Saved Answers
+    </button>
+  </div>
+</main>
+
+<!-- ===================== HADITH SCREEN ===================== -->
+<main id="screen-hadith" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div id="hadith-book-view">
+    <p class="quran-hint">Choose a collection to browse or search.</p>
+    <div id="hadith-book-list" class="quran-surah-list">
+      <p class="empty-state">Loading collections…</p>
+    </div>
+  </div>
+  <div id="hadith-section-view" style="display:none;">
+    <div class="quran-detail-header">
+      <button class="small-btn" id="hadith-back-to-books">‹ Collections</button>
+      <h2 id="hadith-book-title"></h2>
+    </div>
+    <div class="card quran-search-card">
+      <input type="search" id="hadith-search-input" placeholder="Search this collection…" />
+      <button class="small-btn" id="hadith-search-btn">Search</button>
+    </div>
+    <div id="hadith-search-results"></div>
+    <div id="hadith-chapter-list" class="quran-surah-list"></div>
+  </div>
+  <div id="hadith-list-view" style="display:none;">
+    <div class="quran-detail-header">
+      <button class="small-btn" id="hadith-back-to-chapters">‹ Chapters</button>
+      <h2 id="hadith-chapter-title"></h2>
+    </div>
+    <div id="hadith-items-list"></div>
+  </div>
+</main>
+
+<!-- ===================== 99 NAMES SCREEN ===================== -->
+<main id="screen-names" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div id="names-grid" class="names-grid">
+    <p class="empty-state">Loading…</p>
+  </div>
+</main>
+
+<!-- ===================== DUAS SCREEN ===================== -->
+<main id="screen-duas" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div id="duas-category-view">
+    <div id="duas-category-list" class="quran-surah-list"></div>
+  </div>
+  <div id="duas-list-view" style="display:none;">
+    <div class="quran-detail-header">
+      <button class="small-btn" id="duas-back-to-categories">‹ Categories</button>
+      <h2 id="duas-category-title"></h2>
+    </div>
+    <div id="duas-items-list"></div>
+  </div>
+</main>
+
+<!-- ===================== ZAKAT CALCULATOR SCREEN ===================== -->
+<main id="screen-zakat" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div class="card">
+    <h2>Zakat Calculator</h2>
+    <p class="quran-hint">Zakat is due at 2.5% of zakatable wealth once it meets or exceeds the nisab threshold (612.36g of silver), held for one lunar year.</p>
+    <form id="zakat-form" class="zakat-form">
+      <label>Silver price (per gram, your currency)
+        <input type="number" id="zakat-silver-price" min="0" step="0.01" required />
+      </label>
+      <label>Cash &amp; bank savings
+        <input type="number" id="zakat-cash" min="0" step="0.01" value="0" />
+      </label>
+      <label>Gold &amp; silver value
+        <input type="number" id="zakat-metals" min="0" step="0.01" value="0" />
+      </label>
+      <label>Business assets / inventory
+        <input type="number" id="zakat-business" min="0" step="0.01" value="0" />
+      </label>
+      <label>Other investments
+        <input type="number" id="zakat-investments" min="0" step="0.01" value="0" />
+      </label>
+      <label>Debts owed to you (collectible)
+        <input type="number" id="zakat-receivable" min="0" step="0.01" value="0" />
+      </label>
+      <label>Debts you owe (due now)
+        <input type="number" id="zakat-debts" min="0" step="0.01" value="0" />
+      </label>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="zakat-result"></div>
+  </div>
+</main>
+
+<!-- ===================== HIJRI CALENDAR SCREEN ===================== -->
+<main id="screen-calendar" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div class="card">
+    <h2>Today</h2>
+    <p id="calendar-today" class="qibla-note">Loading…</p>
+  </div>
+  <div class="card">
+    <h2>Date Converter</h2>
+    <div class="calendar-converter">
+      <div class="calendar-converter-col">
+        <label>Gregorian date</label>
+        <input type="date" id="calendar-gregorian-input" />
+        <button class="small-btn" id="calendar-to-hijri-btn">Convert to Hijri</button>
+      </div>
+    </div>
+    <p id="calendar-result" class="qibla-note"></p>
+  </div>
+</main>
+
 <!-- ===================== BOTTOM NAVIGATION ===================== -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-screen="chat">
     <span class="nav-icon">💬</span>Chat
   </button>
-  <button class="nav-btn" data-screen="prayer">
-    <span class="nav-icon">🕌</span>Prayer
-  </button>
   <button class="nav-btn" data-screen="quran">
     <span class="nav-icon">📖</span>Quran
+  </button>
+  <button class="nav-btn" data-screen="prayer">
+    <span class="nav-icon">🕌</span>Prayer
   </button>
   <button class="nav-btn" data-screen="qibla">
     <span class="nav-icon">🧭</span>Qibla
   </button>
-  <button class="nav-btn" data-screen="tasbih">
-    <span class="nav-icon">📿</span>Dhikr
-  </button>
-  <button class="nav-btn" data-screen="bookmarks">
-    <span class="nav-icon">🔖</span>Saved
+  <button class="nav-btn" data-screen="more">
+    <span class="nav-icon">☰</span>More
   </button>
 </nav>
 
@@ -194,6 +326,11 @@
 
 <script type="module" src="js/auth.js"></script>
 <script src="js/quran.js"></script>
+<script src="js/hadith.js"></script>
+<script src="js/names.js"></script>
+<script src="js/duas.js"></script>
+<script src="js/zakat.js"></script>
+<script src="js/hijri.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 // Deen Assist — Service Worker
 // Bump this version any time you change cached files, so users get the update.
-const CACHE_NAME = "deen-assist-cache-v5";
+const CACHE_NAME = "deen-assist-cache-v6";
 
 const APP_SHELL = [
   "./",
@@ -12,6 +12,11 @@ const APP_SHELL = [
   "./js/host-detect.js",
   "./js/firebase-config.js",
   "./js/quran.js",
+  "./js/hadith.js",
+  "./js/names.js",
+  "./js/duas.js",
+  "./js/zakat.js",
+  "./js/hijri.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png"

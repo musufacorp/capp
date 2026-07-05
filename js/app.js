@@ -23,32 +23,71 @@ const screenTitles = {
   prayer: "Prayer Times",
   quran: "Digital Quran",
   qibla: "Qibla Direction",
+  more: "More",
   tasbih: "Dhikr Counter",
-  bookmarks: "Saved Answers"
+  bookmarks: "Saved Answers",
+  hadith: "Hadith",
+  names: "99 Names of Allah",
+  duas: "Duas",
+  zakat: "Zakat Calculator",
+  calendar: "Hijri Calendar"
 };
 
+// Screens reachable only via the "More" hub keep the More nav button highlighted
+const MORE_HUB_SCREENS = new Set(["more", "tasbih", "bookmarks", "hadith", "names", "duas", "zakat", "calendar"]);
+
 let quranLoaded = false;
+let hadithLoaded = false;
+let namesLoaded = false;
+let duasLoaded = false;
+let calendarLoaded = false;
+
+function goToScreen(target) {
+  screens.forEach((s) => s.classList.remove("active"));
+  document.getElementById(`screen-${target}`).classList.add("active");
+
+  navButtons.forEach((b) => b.classList.remove("active"));
+  const activeNavTarget = MORE_HUB_SCREENS.has(target) ? "more" : target;
+  const activeNavBtn = document.querySelector(`.nav-btn[data-screen="${activeNavTarget}"]`);
+  if (activeNavBtn) activeNavBtn.classList.add("active");
+
+  headerTitle.textContent = screenTitles[target] || "Deen Assist";
+
+  // Lazy-load data the first time a screen is opened
+  if (target === "prayer" && !prayerLoaded) loadPrayerTimes();
+  if (target === "quran" && !quranLoaded) {
+    quranLoaded = true;
+    window.initQuran && window.initQuran();
+  }
+  if (target === "hadith" && !hadithLoaded) {
+    hadithLoaded = true;
+    window.initHadith && window.initHadith();
+  }
+  if (target === "names" && !namesLoaded) {
+    namesLoaded = true;
+    window.initNames && window.initNames();
+  }
+  if (target === "duas" && !duasLoaded) {
+    duasLoaded = true;
+    window.initDuas && window.initDuas();
+  }
+  if (target === "calendar" && !calendarLoaded) {
+    calendarLoaded = true;
+    window.initHijriCalendar && window.initHijriCalendar();
+  }
+  if (target === "bookmarks") renderBookmarks();
+}
 
 navButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const target = btn.dataset.screen;
+  btn.addEventListener("click", () => goToScreen(btn.dataset.screen));
+});
 
-    screens.forEach((s) => s.classList.remove("active"));
-    document.getElementById(`screen-${target}`).classList.add("active");
+document.querySelectorAll(".more-tile").forEach((tile) => {
+  tile.addEventListener("click", () => goToScreen(tile.dataset.screen));
+});
 
-    navButtons.forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    headerTitle.textContent = screenTitles[target] || "Deen Assist";
-
-    // Lazy-load data the first time a screen is opened
-    if (target === "prayer" && !prayerLoaded) loadPrayerTimes();
-    if (target === "quran" && !quranLoaded) {
-      quranLoaded = true;
-      window.initQuran && window.initQuran();
-    }
-    if (target === "bookmarks") renderBookmarks();
-  });
+document.querySelectorAll(".back-to-more-btn").forEach((btn) => {
+  btn.addEventListener("click", () => goToScreen(btn.dataset.backTo));
 });
 
 // ---------- Dark mode toggle (persisted) ----------

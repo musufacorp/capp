@@ -1,0 +1,121 @@
+// ============================================================
+// Deen Assist — 99 Names of Allah (Asma-ul-Husna)
+// Static data, no API needed.
+// ============================================================
+
+const ASMA_UL_HUSNA = [
+  ["الرَّحْمَٰن", "Ar-Rahman", "The Most Compassionate"],
+  ["الرَّحِيم", "Ar-Raheem", "The Most Merciful"],
+  ["الْمَلِك", "Al-Malik", "The King and Owner of Dominion"],
+  ["الْقُدُّوس", "Al-Quddus", "The Absolutely Pure"],
+  ["السَّلَام", "As-Salam", "The Source of Peace"],
+  ["الْمُؤْمِن", "Al-Mu'min", "The Giver of Faith and Security"],
+  ["الْمُهَيْمِن", "Al-Muhaymin", "The Guardian, the Witness"],
+  ["الْعَزِيز", "Al-Aziz", "The Almighty, the Self-Sufficient"],
+  ["الْجَبَّار", "Al-Jabbar", "The Compeller, the Restorer"],
+  ["الْمُتَكَبِّر", "Al-Mutakabbir", "The Supreme, Possessor of Greatness"],
+  ["الْخَالِق", "Al-Khaliq", "The Creator"],
+  ["الْبَارِئ", "Al-Bari", "The Maker, the Evolver"],
+  ["الْمُصَوِّر", "Al-Musawwir", "The Fashioner of Forms"],
+  ["الْغَفَّار", "Al-Ghaffar", "The Ever-Forgiving"],
+  ["الْقَهَّار", "Al-Qahhar", "The All-Subduer, the Ever-Dominant"],
+  ["الْوَهَّاب", "Al-Wahhab", "The Supreme Bestower"],
+  ["الرَّزَّاق", "Ar-Razzaq", "The Provider, the Sustainer"],
+  ["الْفَتَّاح", "Al-Fattah", "The Supreme Opener, the Judge"],
+  ["اَلْعَلِيْم", "Al-'Alim", "The All-Knowing"],
+  ["الْقَابِض", "Al-Qabid", "The Withholder, the Constrictor"],
+  ["الْبَاسِط", "Al-Basit", "The Extender, the Expander"],
+  ["الْخَافِض", "Al-Khafid", "The Abaser"],
+  ["الرَّافِع", "Ar-Rafi", "The Exalter"],
+  ["الْمُعِز", "Al-Mu'izz", "The Bestower of Honor"],
+  ["المُذِل", "Al-Mudhill", "The Humiliator"],
+  ["السَّمِيع", "As-Sami", "The All-Hearing"],
+  ["الْبَصِير", "Al-Basir", "The All-Seeing"],
+  ["الْحَكَم", "Al-Hakam", "The Impartial Judge"],
+  ["الْعَدْل", "Al-'Adl", "The Utterly Just"],
+  ["اللَّطِيف", "Al-Latif", "The Subtly Kind"],
+  ["الْخَبِير", "Al-Khabir", "The All-Aware"],
+  ["الْحَلِيم", "Al-Halim", "The Forbearing, the Indulgent"],
+  ["الْعَظِيم", "Al-'Azim", "The Magnificent, the Supreme"],
+  ["الْغَفُور", "Al-Ghafur", "The Great Forgiver"],
+  ["الشَّكُور", "Ash-Shakur", "The Most Appreciative"],
+  ["الْعَلِي", "Al-'Ali", "The Most High"],
+  ["الْكَبِير", "Al-Kabir", "The Most Great"],
+  ["الْحَفِيظ", "Al-Hafiz", "The Preserver"],
+  ["المُقيت", "Al-Muqit", "The Sustainer, the Nourisher"],
+  ["الْحسِيب", "Al-Hasib", "The Reckoner"],
+  ["الْجَلِيل", "Al-Jalil", "The Majestic"],
+  ["الْكَرِيم", "Al-Karim", "The Most Generous, the Bountiful"],
+  ["الرَّقِيب", "Ar-Raqib", "The Watchful"],
+  ["الْمُجِيب", "Al-Mujib", "The Responsive One"],
+  ["الْوَاسِع", "Al-Wasi", "The All-Encompassing, the Boundless"],
+  ["الْحَكِيم", "Al-Hakim", "The All-Wise"],
+  ["الْوَدُود", "Al-Wadud", "The Most Loving"],
+  ["الْمَجِيد", "Al-Majid", "The Glorious, the Most Honorable"],
+  ["الْبَاعِث", "Al-Ba'ith", "The Infuser of New Life, the Resurrector"],
+  ["الشَّهِيد", "Ash-Shahid", "The All-Observing Witness"],
+  ["الْحَق", "Al-Haqq", "The Absolute Truth"],
+  ["الْوَكِيل", "Al-Wakil", "The Trustee, the Disposer of Affairs"],
+  ["الْقَوِي", "Al-Qawiyy", "The All-Strong"],
+  ["الْمَتِين", "Al-Matin", "The Firm, the Steadfast"],
+  ["الْوَلِي", "Al-Waliyy", "The Protecting Friend"],
+  ["الْحَمِيد", "Al-Hamid", "The Praiseworthy"],
+  ["الْمُحْصِي", "Al-Muhsi", "The All-Enumerating, the Counter"],
+  ["الْمُبْدِئ", "Al-Mubdi", "The Originator, the Initiator"],
+  ["الْمُعِيد", "Al-Mu'id", "The Restorer, the Reinstater"],
+  ["الْمُحْيِي", "Al-Muhyi", "The Giver of Life"],
+  ["المُمِيت", "Al-Mumit", "The Bringer of Death"],
+  ["الْحَي", "Al-Hayy", "The Ever-Living"],
+  ["الْقَيُّوم", "Al-Qayyum", "The Self-Subsisting, the Sustainer"],
+  ["الْوَاجِد", "Al-Wajid", "The Perceiver, the Finder"],
+  ["الْمَاجِد", "Al-Majid", "The Illustrious, the Magnificent"],
+  ["الْواحِد", "Al-Wahid", "The One, the All-Inclusive"],
+  ["الاَحَد", "Al-Ahad", "The Unique, the Only One"],
+  ["الصَّمَد", "As-Samad", "The Eternal, the Self-Sufficient Master"],
+  ["الْقَادِر", "Al-Qadir", "The All-Powerful, the Able"],
+  ["الْمُقْتَدِر", "Al-Muqtadir", "The All-Determiner, the Dominant"],
+  ["الْمُقَدِّم", "Al-Muqaddim", "The Expediter, the Promoter"],
+  ["الْمُؤَخِّر", "Al-Mu'akhkhir", "The Delayer, the Retarder"],
+  ["الأوَّل", "Al-Awwal", "The First"],
+  ["الآخِر", "Al-Akhir", "The Last"],
+  ["الظَّاهِر", "Az-Zahir", "The Manifest, the Evident"],
+  ["الْبَاطِن", "Al-Batin", "The Hidden, the Unmanifest"],
+  ["الْوَالِي", "Al-Wali", "The Sole Governor"],
+  ["الْمُتَعَالِي", "Al-Muta'ali", "The Self-Exalted"],
+  ["الْبَر", "Al-Barr", "The Source of All Goodness"],
+  ["التَّوَاب", "At-Tawwab", "The Ever-Accepting of Repentance"],
+  ["الْمُنْتَقِم", "Al-Muntaqim", "The Avenger"],
+  ["العَفُوّ", "Al-'Afuww", "The Pardoner, the Effacer of Sins"],
+  ["الرَّؤُوف", "Ar-Ra'uf", "The Compassionate, the All-Pitying"],
+  ["مَالِكُ الْمُلْك", "Malik-ul-Mulk", "Owner of All Sovereignty"],
+  ["ذُوالْجَلَالِ وَالإكْرَام", "Dhul-Jalali wal-Ikram", "Lord of Majesty and Generosity"],
+  ["الْمُقْسِط", "Al-Muqsit", "The Equitable, the Requiter"],
+  ["الْجَامِع", "Al-Jami", "The Gatherer, the Uniter"],
+  ["الْغَنِي", "Al-Ghani", "The Self-Sufficient, the Rich"],
+  ["الْمُغْنِي", "Al-Mughni", "The Enricher, the Emancipator"],
+  ["اَلْمَانِعُ", "Al-Mani", "The Preventer of Harm"],
+  ["الضَّار", "Ad-Darr", "The Distresser, the Afflicter"],
+  ["النَّافِع", "An-Nafi", "The Propitious, the Benefactor"],
+  ["النُّور", "An-Nur", "The Light"],
+  ["الْهَادِي", "Al-Hadi", "The Guide"],
+  ["الْبَدِيع", "Al-Badi", "The Incomparable, the Originator"],
+  ["اَلْبَاقِي", "Al-Baqi", "The Ever-Enduring, the Everlasting"],
+  ["الْوَارِث", "Al-Warith", "The Ultimate Inheritor"],
+  ["الرَّشِيد", "Ar-Rashid", "The Guide to the Right Path"],
+  ["الصَّبُور", "As-Sabur", "The Ever-Patient"]
+];
+
+function initNames() {
+  const gridEl = document.getElementById("names-grid");
+  gridEl.innerHTML = ASMA_UL_HUSNA.map(
+    ([arabic, translit, meaning], i) => `
+    <div class="name-card">
+      <span class="name-index">${i + 1}</span>
+      <span class="name-arabic">${arabic}</span>
+      <span class="name-translit">${translit}</span>
+      <span class="name-meaning">${meaning}</span>
+    </div>`
+  ).join("");
+}
+
+window.initNames = initNames;
