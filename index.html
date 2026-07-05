@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>Deen Assist</title>
+
+<!-- ===== PWA manifest ===== -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#0f5132" />
+
+<!-- ===== Android / Chrome install ===== -->
+<meta name="mobile-web-app-capable" content="yes" />
+
+<!-- ===== iOS-specific PWA meta tags (Safari ignores parts of the manifest spec) ===== -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Deen Assist" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+<link rel="icon" href="icons/favicon-32.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="light">
+
+<!-- ===================== AUTH SCREEN (Firebase) ===================== -->
+<!-- Shown until a user signs in; replaces the previous MS Entra ID flow -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <img src="icons/icon-192.png" alt="Deen Assist" class="auth-logo" />
+    <h1 class="auth-title">Deen Assist</h1>
+    <p class="auth-subtitle">By Musufa</p>
+
+    <p id="auth-error"></p>
+
+    <!-- Sign in -->
+    <form id="signin-form" class="auth-form active-form">
+      <input type="email" id="signin-email" placeholder="Email" required autocomplete="email" />
+      <input type="password" id="signin-password" placeholder="Password" required autocomplete="current-password" />
+      <button type="submit">Sign In</button>
+      <button type="button" id="forgot-password-btn" class="link-btn">Forgot password?</button>
+      <p class="auth-switch">New here? <button type="button" id="show-signup" class="link-btn">Create an account</button></p>
+    </form>
+
+    <!-- Sign up -->
+    <form id="signup-form" class="auth-form">
+      <input type="text" id="signup-name" placeholder="Full name" autocomplete="name" />
+      <input type="email" id="signup-email" placeholder="Email" required autocomplete="email" />
+      <input type="password" id="signup-password" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password" />
+      <button type="submit">Create Account</button>
+      <p class="auth-switch">Already have an account? <button type="button" id="show-signin" class="link-btn">Sign in</button></p>
+    </form>
+
+    <div class="auth-divider"><span>or</span></div>
+    <button type="button" id="google-signin-btn" class="google-btn">
+      <span>Continue with Google</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===================== APP ROOT (hidden until signed in) ===================== -->
+<div id="app-root" style="display:none;">
+
+<div id="offline-banner">You're offline — some features may be limited.</div>
+
+<header class="app-header">
+  <h1 id="header-title">Deen Assist</h1>
+  <div class="header-actions">
+    <span id="user-email-label" class="user-email"></span>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    <button class="icon-btn" id="signout-btn" aria-label="Sign out">⎋</button>
+  </div>
+</header>
+
+<!-- ===================== CHATBOT SCREEN ===================== -->
+<main id="screen-chat" class="screen active">
+  <!--
+    Replace the src below with your actual embedded chatbot URL,
+    or swap this iframe for your existing chatbot's inline <script>/<div> embed code.
+  -->
+  <iframe id="chatbot-frame"
+    src="https://copilotstudio.microsoft.com/environments/Default-d9cbc7e3-d60b-4059-8ec0-d5319e89f43b/bots/cr43b_dinAssist/webchat?__version__=2"
+    title="Deen Assist Chatbot"
+    allow="microphone"></iframe>
+</main>
+
+<!-- ===================== PRAYER TIMES SCREEN ===================== -->
+<main id="screen-prayer" class="screen">
+  <div class="card">
+    <h2>Today's Prayer Times</h2>
+    <p id="prayer-location" class="qibla-note">Detecting location…</p>
+    <ul class="prayer-list" id="prayer-list">
+      <li>Loading…</li>
+    </ul>
+    <p class="countdown" id="prayer-countdown"></p>
+  </div>
+</main>
+
+<!-- ===================== QIBLA SCREEN ===================== -->
+<main id="screen-qibla" class="screen">
+  <div class="card qibla-wrap">
+    <h2>Qibla Direction</h2>
+    <div id="qibla-compass">
+      <div id="qibla-needle"></div>
+    </div>
+    <p class="qibla-note" id="qibla-status">Tap "Enable Compass" and hold your phone flat.</p>
+    <button class="small-btn" id="qibla-enable">Enable Compass</button>
+  </div>
+</main>
+
+<!-- ===================== TASBIH / DHIKR COUNTER SCREEN ===================== -->
+<main id="screen-tasbih" class="screen">
+  <div class="card tasbih-wrap">
+    <h2>Dhikr Counter</h2>
+    <div class="tasbih-count" id="tasbih-count">0</div>
+    <div class="tasbih-target" id="tasbih-target-label">Target: 33</div>
+    <button class="tasbih-btn" id="tasbih-tap">Tap</button>
+    <div class="tasbih-controls">
+      <button class="small-btn" id="tasbih-reset">Reset</button>
+      <button class="small-btn" id="tasbih-target-cycle">Change Target</button>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== BOOKMARKS SCREEN ===================== -->
+<main id="screen-bookmarks" class="screen">
+  <div class="card">
+    <h2>Saved Answers</h2>
+    <div id="bookmark-list">
+      <p class="empty-state">No saved answers yet. Long-press or use "Save" on any chatbot answer to keep it here.</p>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== BOTTOM NAVIGATION ===================== -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-screen="chat">
+    <span class="nav-icon">💬</span>Chat
+  </button>
+  <button class="nav-btn" data-screen="prayer">
+    <span class="nav-icon">🕌</span>Prayer
+  </button>
+  <button class="nav-btn" data-screen="qibla">
+    <span class="nav-icon">🧭</span>Qibla
+  </button>
+  <button class="nav-btn" data-screen="tasbih">
+    <span class="nav-icon">📿</span>Dhikr
+  </button>
+  <button class="nav-btn" data-screen="bookmarks">
+    <span class="nav-icon">🔖</span>Saved
+  </button>
+</nav>
+
+</div><!-- /#app-root -->
+
+<script type="module" src="js/auth.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

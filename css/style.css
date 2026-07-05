@@ -1,0 +1,473 @@
+:root {
+  --color-primary: #0f5132;
+  --color-primary-light: #146c43;
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b6b6b;
+  --color-border: #e5e5e0;
+  --color-accent: #c9a227;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+[data-theme="dark"] {
+  --color-bg: #121212;
+  --color-surface: #1e1e1e;
+  --color-text: #f2f2f2;
+  --color-text-muted: #a0a0a0;
+  --color-border: #2c2c2c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Top bar */
+.app-header {
+  padding: calc(12px + var(--safe-top)) 16px 12px;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header h1 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* Main content area */
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  padding-bottom: calc(72px + var(--safe-bottom));
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.card h2 {
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+/* Chatbot screen */
+#screen-chat {
+  padding: 0;
+  display: none;
+}
+
+#screen-chat.active {
+  display: flex;
+  flex-direction: column;
+}
+
+#chatbot-frame {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: var(--color-surface);
+}
+
+/* Prayer times */
+.prayer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prayer-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 15px;
+}
+
+.prayer-list li:last-child {
+  border-bottom: none;
+}
+
+.prayer-list li.next {
+  color: var(--color-primary-light);
+  font-weight: 700;
+}
+
+.countdown {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* Qibla */
+.qibla-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+#qibla-compass {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+}
+
+#qibla-needle {
+  width: 4px;
+  height: 90px;
+  background: var(--color-accent);
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 4px;
+}
+
+.qibla-note {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Tasbih counter */
+.tasbih-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.tasbih-count {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.tasbih-target {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.tasbih-btn {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tasbih-btn:active {
+  background: var(--color-primary-light);
+}
+
+.tasbih-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.small-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Bookmarks */
+.bookmark-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 10px 0;
+}
+
+.bookmark-item:last-child {
+  border-bottom: none;
+}
+
+.bookmark-text {
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+
+.bookmark-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookmark-date {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #b3261e;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 40px 10px;
+  font-size: 14px;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  padding-bottom: var(--safe-bottom);
+  z-index: 10;
+}
+
+.nav-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.nav-btn .nav-icon {
+  font-size: 20px;
+}
+
+.nav-btn.active {
+  color: var(--color-primary-light);
+}
+
+/* ============================================================
+   AUTH SCREEN (Firebase sign-in / sign-up)
+   ============================================================ */
+#auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-bg) 55%);
+  padding: 24px 16px calc(24px + var(--safe-bottom));
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.auth-title {
+  font-size: 20px;
+  margin: 0;
+}
+
+.auth-subtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+  margin: 2px 0 18px;
+}
+
+#auth-error {
+  width: 100%;
+  min-height: 0;
+  font-size: 13px;
+  color: #b3261e;
+  text-align: center;
+  margin: 0;
+  display: none;
+}
+
+#auth-error.show {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.auth-form {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-form.active-form {
+  display: flex;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 15px;
+}
+
+.auth-form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary-light);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 0;
+  text-align: center;
+}
+
+.auth-switch {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 6px 0 0;
+}
+
+.auth-divider {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  line-height: 0.1em;
+  margin: 18px 0 14px;
+}
+
+.auth-divider span {
+  background: var(--color-surface);
+  padding: 0 10px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.google-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Header additions for signed-in state */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.user-email {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+#offline-banner {
+  display: none;
+  background: #b3261e;
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  padding: 6px;
+}
+
+#offline-banner.show {
+  display: block;
+}
