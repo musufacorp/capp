@@ -1,6 +1,6 @@
 // Deen Assist — Service Worker
 // Bump this version any time you change cached files, so users get the update.
-const CACHE_NAME = "deen-assist-cache-v2";
+const CACHE_NAME = "deen-assist-cache-v3";
 
 const APP_SHELL = [
   "./",
@@ -9,6 +9,7 @@ const APP_SHELL = [
   "./css/style.css",
   "./js/app.js",
   "./js/auth.js",
+  "./js/host-detect.js",
   "./js/firebase-config.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
@@ -51,9 +52,13 @@ self.addEventListener("fetch", (event) => {
       if (cached) return cached;
       return fetch(request)
         .then((response) => {
-          // Cache a copy of newly fetched same-origin files
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
+          // Only cache successful responses — caching a 404/500 would
+          // permanently stick a broken response in the cache until the
+          // next version bump.
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
+          }
           return response;
         })
         .catch(() => caches.match("./index.html")); // offline fallback
