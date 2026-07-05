@@ -9,12 +9,13 @@
 // ============================================================
 
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDM8SWz91wj8KcmT4FUN9iKpCCtUh-eQdg",
+  authDomain: "capp-deenassist.firebaseapp.com",
+  projectId: "capp-deenassist",
+  storageBucket: "capp-deenassist.firebasestorage.app",
+  messagingSenderId: "165100237312",
+  appId: "1:165100237312:web:1cbd2bb5558897c6431ee5",
+  measurementId: "G-7G3KVDFQS6"
 };
 
 // Note: Firebase web config values are not secret the way an API key
