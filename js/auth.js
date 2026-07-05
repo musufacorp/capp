@@ -5,6 +5,7 @@
 // ============================================================
 
 import { firebaseConfig } from "./firebase-config.js";
+import { detectHost } from "./host-detect.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
@@ -72,7 +73,7 @@ function friendlyAuthError(err) {
     "auth/too-many-requests": "Too many attempts — please wait a moment and try again.",
     "auth/popup-closed-by-user": "Sign-in popup was closed before completing."
   };
-  return map[code] || "Something went wrong. Please try again.";
+  return map[code] || `Something went wrong (${code || "no error code"}). Please try again.`;
 }
 
 // ---------- Sign up ----------
@@ -157,20 +158,35 @@ signOutBtn?.addEventListener("click", () => {
   signOut(auth);
 });
 
-// ---------- Auth state gate ----------
-// This is the core replacement for the old Entra ID flow: show the
-// auth screen until a user is signed in, then reveal the app.
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    authScreen.style.display = "none";
-    appRoot.style.display = "flex";
-    userEmailLabel.textContent = user.displayName || user.email || "";
-    document.dispatchEvent(new CustomEvent("deenassist-auth-ready", { detail: { user } }));
-  } else {
-    authScreen.style.display = "flex";
-    appRoot.style.display = "none";
-  }
-});
+// ---------- Teams / Outlook guest bypass ----------
+// When embedded in Teams or Outlook, skip the Firebase login screen and
+// drop straight into a guest session — no real SSO yet (see host-detect.js).
+const embeddedHost = await detectHost();
+
+if (embeddedHost) {
+  authScreen.style.display = "none";
+  appRoot.style.display = "flex";
+  signOutBtn.style.display = "none";
+  userEmailLabel.textContent = embeddedHost === "teams" ? "Guest (Microsoft Teams)" : "Guest (Outlook)";
+  document.dispatchEvent(new CustomEvent("deenassist-auth-ready", {
+    detail: { user: { uid: `guest-${embeddedHost}` } }
+  }));
+} else {
+  // ---------- Auth state gate ----------
+  // This is the core replacement for the old Entra ID flow: show the
+  // auth screen until a user is signed in, then reveal the app.
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      authScreen.style.display = "none";
+      appRoot.style.display = "flex";
+      userEmailLabel.textContent = user.displayName || user.email || "";
+      document.dispatchEvent(new CustomEvent("deenassist-auth-ready", { detail: { user } }));
+    } else {
+      authScreen.style.display = "flex";
+      appRoot.style.display = "none";
+    }
+  });
+}
 
 // Expose the current user/uid for other modules (e.g. to namespace
 // bookmarks per-user instead of just localStorage-for-everyone)
