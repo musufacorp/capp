@@ -21,10 +21,13 @@ const headerTitle = document.getElementById("header-title");
 const screenTitles = {
   chat: "Deen Assist",
   prayer: "Prayer Times",
+  quran: "Digital Quran",
   qibla: "Qibla Direction",
   tasbih: "Dhikr Counter",
   bookmarks: "Saved Answers"
 };
+
+let quranLoaded = false;
 
 navButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -40,6 +43,10 @@ navButtons.forEach((btn) => {
 
     // Lazy-load data the first time a screen is opened
     if (target === "prayer" && !prayerLoaded) loadPrayerTimes();
+    if (target === "quran" && !quranLoaded) {
+      quranLoaded = true;
+      window.initQuran && window.initQuran();
+    }
     if (target === "bookmarks") renderBookmarks();
   });
 });

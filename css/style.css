@@ -272,6 +272,198 @@ body {
   font-size: 14px;
 }
 
+/* Quran */
+.quran-search-card {
+  display: flex;
+  gap: 8px;
+}
+
+.quran-search-card input[type="search"] {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+#quran-search-results:not(:empty) {
+  margin-bottom: 14px;
+}
+
+.quran-search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.quran-search-ref {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.quran-search-snippet {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.quran-hint {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0 0 10px;
+}
+
+.quran-surah-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quran-surah-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.quran-surah-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.quran-surah-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.quran-surah-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.quran-surah-sub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.quran-surah-arabic {
+  font-size: 18px;
+  color: var(--color-primary-light);
+}
+
+.quran-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.quran-detail-header h2 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.quran-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.quran-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+#quran-translation-select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 13px;
+}
+
+.quran-ayah-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.quran-ayah-highlight {
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.quran-ayah-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.quran-ayah-ref {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.quran-play-btn {
+  font-size: 16px;
+  color: var(--color-primary-light);
+}
+
+.quran-arabic-text {
+  text-align: right;
+  font-size: 24px;
+  line-height: 1.8;
+  margin: 0 0 10px;
+}
+
+.quran-translit-text {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  padding-top: 8px;
+  margin: 0 0 8px;
+}
+
+.quran-translation-text {
+  font-size: 14px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 8px;
+  margin: 0;
+}
+
 /* Bottom nav */
 .bottom-nav {
   position: fixed;
