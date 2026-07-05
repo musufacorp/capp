@@ -164,12 +164,13 @@ signOutBtn?.addEventListener("click", () => {
 const embeddedHost = await detectHost();
 
 if (embeddedHost) {
+  const guestLabel = embeddedHost === "teams" ? "Guest (Microsoft Teams)" : "Guest (Outlook)";
   authScreen.style.display = "none";
   appRoot.style.display = "flex";
   signOutBtn.style.display = "none";
-  userEmailLabel.textContent = embeddedHost === "teams" ? "Guest (Microsoft Teams)" : "Guest (Outlook)";
+  userEmailLabel.textContent = guestLabel;
   document.dispatchEvent(new CustomEvent("deenassist-auth-ready", {
-    detail: { user: { uid: `guest-${embeddedHost}` } }
+    detail: { user: { uid: `guest-${embeddedHost}`, displayName: guestLabel, isGuest: true } }
   }));
 } else {
   // ---------- Auth state gate ----------

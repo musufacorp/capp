@@ -303,8 +303,28 @@ document.getElementById("tasbih-target-cycle").addEventListener("click", () => {
 let currentUserId = "guest";
 
 document.addEventListener("deenassist-auth-ready", (e) => {
-  currentUserId = e.detail.user.uid;
+  const user = e.detail.user;
+  currentUserId = user.uid;
   renderBookmarks(); // refresh in case bookmarks screen is already open
+
+  const accountNameEl = document.getElementById("account-user-name");
+  const logoutBtn = document.getElementById("more-logout-btn");
+  accountNameEl.textContent = user.displayName || user.email || "Guest";
+  logoutBtn.style.display = user.isGuest ? "none" : "inline-block";
+});
+
+document.getElementById("more-logout-btn").addEventListener("click", () => {
+  document.getElementById("signout-btn").click();
+});
+
+// ---------- Exit App (best-effort — browsers restrict script-driven ----------
+// tab/window closing for user-opened pages, so this may not actually close
+// anything; the fallback message tells the user how to exit manually.
+document.getElementById("exit-app-btn").addEventListener("click", () => {
+  window.close();
+  setTimeout(() => {
+    alert("Deen Assist can't force-close from within the app. Please use your device's back button, home button, or app switcher to exit.");
+  }, 300);
 });
 
 function bookmarkKey() {
