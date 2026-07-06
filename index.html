@@ -35,25 +35,25 @@
 
     <!-- Sign in -->
     <form id="signin-form" class="auth-form active-form">
-      <input type="email" id="signin-email" placeholder="Email" required autocomplete="email" />
-      <input type="password" id="signin-password" placeholder="Password" required autocomplete="current-password" />
-      <button type="submit">Sign In</button>
-      <button type="button" id="forgot-password-btn" class="link-btn">Forgot password?</button>
-      <p class="auth-switch">New here? <button type="button" id="show-signup" class="link-btn">Create an account</button></p>
+      <input type="email" id="signin-email" placeholder="Email" data-i18n-placeholder="authEmail" required autocomplete="email" />
+      <input type="password" id="signin-password" placeholder="Password" data-i18n-placeholder="authPassword" required autocomplete="current-password" />
+      <button type="submit" data-i18n="authSignIn">Sign In</button>
+      <button type="button" id="forgot-password-btn" class="link-btn" data-i18n="authForgotPassword">Forgot password?</button>
+      <p class="auth-switch"><span data-i18n="authNewHere">New here?</span> <button type="button" id="show-signup" class="link-btn" data-i18n="authCreateAccountLink">Create an account</button></p>
     </form>
 
     <!-- Sign up -->
     <form id="signup-form" class="auth-form">
-      <input type="text" id="signup-name" placeholder="Full name" autocomplete="name" />
-      <input type="email" id="signup-email" placeholder="Email" required autocomplete="email" />
-      <input type="password" id="signup-password" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password" />
-      <button type="submit">Create Account</button>
-      <p class="auth-switch">Already have an account? <button type="button" id="show-signin" class="link-btn">Sign in</button></p>
+      <input type="text" id="signup-name" placeholder="Full name" data-i18n-placeholder="authFullName" autocomplete="name" />
+      <input type="email" id="signup-email" placeholder="Email" data-i18n-placeholder="authEmail" required autocomplete="email" />
+      <input type="password" id="signup-password" placeholder="Password (min 6 characters)" data-i18n-placeholder="authSignupPassword" required minlength="6" autocomplete="new-password" />
+      <button type="submit" data-i18n="authCreateAccountBtn">Create Account</button>
+      <p class="auth-switch"><span data-i18n="authAlreadyHaveAccount">Already have an account?</span> <button type="button" id="show-signin" class="link-btn" data-i18n="authSignInLink">Sign in</button></p>
     </form>
 
-    <div class="auth-divider"><span>or</span></div>
+    <div class="auth-divider"><span data-i18n="authOr">or</span></div>
     <button type="button" id="google-signin-btn" class="google-btn">
-      <span>Continue with Google</span>
+      <span data-i18n="authGoogle">Continue with Google</span>
     </button>
   </div>
 </div>
@@ -61,7 +61,7 @@
 <!-- ===================== APP ROOT (hidden until signed in) ===================== -->
 <div id="app-root" style="display:none;">
 
-<div id="offline-banner">You're offline — some features may be limited.</div>
+<div id="offline-banner" data-i18n="offlineBanner">You're offline — some features may be limited.</div>
 
 <header class="app-header">
   <h1 id="header-title">Deen Assist</h1>
@@ -76,19 +76,19 @@
 <main id="screen-chat" class="screen active">
   <div id="chat-welcome-view" class="chat-welcome">
     <img src="icons/icon-192.png" alt="Deen Assist" class="chat-welcome-logo" />
-    <h2>Welcome to Deen Assist</h2>
-    <p class="chat-welcome-text">Your Islamic companion by Musufa. Ask everyday questions about Islam, get guidance on rituals and daily life, and explore the Quran, Hadith, prayer times, duas, and more using the tools below.</p>
-    <p class="chat-welcome-disclaimer">The chatbot uses AI and may occasionally make mistakes. For religious rulings (fatwa) or important personal decisions, please consult a qualified Islamic scholar.</p>
-    <button class="launch-btn" id="launch-chat-btn">Launch Deen Assist</button>
-    <p class="chat-welcome-hint">Not looking for the chatbot? Check out Quran, Prayer, Qibla, and More in the tabs below.</p>
+    <h2 data-i18n="chatWelcomeTitle">Welcome to Deen Assist</h2>
+    <p class="chat-welcome-text" data-i18n="chatWelcomeText">Your Islamic companion by Musufa. Ask everyday questions about Islam, get guidance on rituals and daily life, and explore the Quran, Hadith, prayer times, duas, and more using the tools below.</p>
+    <p class="chat-welcome-disclaimer" data-i18n="aiDisclaimer">The chatbot uses AI and may occasionally make mistakes. For religious rulings (fatwa) or important personal decisions, please consult a qualified Islamic scholar.</p>
+    <button class="launch-btn" id="launch-chat-btn" data-i18n="launchChat">Launch Deen Assist</button>
+    <p class="chat-welcome-hint" data-i18n="chatWelcomeHint">Not looking for the chatbot? Check out Quran, Prayer, Qibla, and More in the tabs below.</p>
 
     <div class="card daily-card">
-      <p class="daily-label">Verse of the Day</p>
-      <div id="daily-verse-content"><p class="empty-state">Loading…</p></div>
+      <p class="daily-label" data-i18n="dailyVerseLabel">Verse of the Day</p>
+      <div id="daily-verse-content"><p class="empty-state" data-i18n="loading">Loading…</p></div>
     </div>
     <div class="card daily-card">
-      <p class="daily-label">Hadith of the Day</p>
-      <div id="daily-hadith-content"><p class="empty-state">Loading…</p></div>
+      <p class="daily-label" data-i18n="dailyHadithLabel">Hadith of the Day</p>
+      <div id="daily-hadith-content"><p class="empty-state" data-i18n="loading">Loading…</p></div>
     </div>
   </div>
   <!--
@@ -107,13 +107,13 @@
 <!-- ===================== PRAYER TIMES SCREEN ===================== -->
 <main id="screen-prayer" class="screen">
   <div class="card">
-    <h2>Today's Prayer Times</h2>
-    <p id="prayer-location" class="qibla-note">Detecting location…</p>
+    <h2 data-i18n="prayerTitle">Today's Prayer Times</h2>
+    <p id="prayer-location" class="qibla-note" data-i18n="detectingLocation">Detecting location…</p>
     <ul class="prayer-list" id="prayer-list">
-      <li>Loading…</li>
+      <li data-i18n="loading">Loading…</li>
     </ul>
     <p class="countdown" id="prayer-countdown"></p>
-    <button class="small-btn" id="prayer-reminder-toggle">Enable Prayer Reminders</button>
+    <button class="small-btn" id="prayer-reminder-toggle" data-i18n="enableReminders">Enable Prayer Reminders</button>
     <p class="quran-hint" id="prayer-reminder-status"></p>
   </div>
 </main>
@@ -122,31 +122,34 @@
 <main id="screen-quran" class="screen">
   <div id="quran-search-view">
     <div class="card quran-search-card">
-      <input type="search" id="quran-search-input" placeholder="Search the Quran (English)…" />
-      <button class="small-btn" id="quran-search-btn">Search</button>
+      <input type="search" id="quran-search-input" placeholder="Search the Quran (English)…" data-i18n-placeholder="quranSearchPlaceholder" />
+      <button class="small-btn" id="quran-search-btn" data-i18n="search">Search</button>
     </div>
     <div id="quran-search-results"></div>
   </div>
 
   <div id="quran-list-view">
-    <p class="quran-hint">Tap a surah to read, listen, and see translation/transliteration.</p>
+    <p class="quran-hint" data-i18n="quranBrowseHint">Tap a surah to read, listen, and see translation/transliteration.</p>
     <div id="quran-surah-list" class="quran-surah-list">
-      <p class="empty-state">Loading surahs…</p>
+      <p class="empty-state" data-i18n="loadingSurahs">Loading surahs…</p>
     </div>
   </div>
 
   <div id="quran-detail-view" style="display:none;">
     <div class="quran-detail-header">
-      <button class="small-btn" id="quran-back-btn">‹ Surahs</button>
+      <button class="small-btn" id="quran-back-btn" data-i18n="backToSurahs">‹ Surahs</button>
       <h2 id="quran-detail-title"></h2>
     </div>
     <div class="card quran-controls">
-      <label class="quran-toggle"><input type="checkbox" id="quran-toggle-transliteration" checked /> Transliteration</label>
-      <label class="quran-toggle"><input type="checkbox" id="quran-toggle-translation" checked /> Translation</label>
+      <label class="quran-toggle"><input type="checkbox" id="quran-toggle-transliteration" checked /> <span data-i18n="transliteration">Transliteration</span></label>
+      <label class="quran-toggle"><input type="checkbox" id="quran-toggle-translation" checked /> <span data-i18n="translation">Translation</span></label>
       <select id="quran-translation-select">
-        <option value="en.sahih">English (Sahih International)</option>
-        <option value="ms.basmeih">Bahasa Malaysia</option>
+        <option value="en.sahih" data-i18n="quranLangEnglish">English (Sahih International)</option>
+        <option value="ms.basmeih" data-i18n="quranLangMalay">Bahasa Malaysia</option>
+        <option value="zh.jian" data-i18n="quranLangChinese">Chinese (Simplified)</option>
+        <option value="ta.tamil" data-i18n="quranLangTamil">Tamil</option>
       </select>
+      <button class="small-btn" id="quran-play-surah-btn">▶ Play Surah</button>
     </div>
     <div id="quran-ayah-list"></div>
   </div>
@@ -157,36 +160,36 @@
 <!-- ===================== QIBLA SCREEN ===================== -->
 <main id="screen-qibla" class="screen">
   <div class="card qibla-wrap">
-    <h2>Qibla Direction</h2>
+    <h2 data-i18n="qiblaTitle">Qibla Direction</h2>
     <div id="qibla-compass">
       <div id="qibla-needle"></div>
     </div>
-    <p class="qibla-note" id="qibla-status">Tap "Enable Compass" and hold your phone flat.</p>
-    <button class="small-btn" id="qibla-enable">Enable Compass</button>
+    <p class="qibla-note" id="qibla-status" data-i18n="qiblaNote">Tap "Enable Compass" and hold your phone flat.</p>
+    <button class="small-btn" id="qibla-enable" data-i18n="qiblaEnable">Enable Compass</button>
   </div>
 </main>
 
 <!-- ===================== TASBIH / DHIKR COUNTER SCREEN ===================== -->
 <main id="screen-tasbih" class="screen">
   <div class="card tasbih-wrap">
-    <h2>Dhikr Counter</h2>
+    <h2 data-i18n="tasbihTitle">Dhikr Counter</h2>
     <div class="tasbih-count" id="tasbih-count">0</div>
     <div class="tasbih-target" id="tasbih-target-label">Target: 33</div>
-    <button class="tasbih-btn" id="tasbih-tap">Tap</button>
+    <button class="tasbih-btn" id="tasbih-tap" data-i18n="tasbihTap">Tap</button>
     <div class="tasbih-controls">
-      <button class="small-btn" id="tasbih-reset">Reset</button>
-      <button class="small-btn" id="tasbih-target-cycle">Change Target</button>
+      <button class="small-btn" id="tasbih-reset" data-i18n="tasbihReset">Reset</button>
+      <button class="small-btn" id="tasbih-target-cycle" data-i18n="tasbihChangeTarget">Change Target</button>
     </div>
   </div>
 </main>
 
 <!-- ===================== BOOKMARKS SCREEN ===================== -->
 <main id="screen-bookmarks" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="card">
-    <h2>Saved Answers</h2>
+    <h2 data-i18n="bookmarksTitle">Saved Answers</h2>
     <div id="bookmark-list">
-      <p class="empty-state">No saved answers yet. Long-press or use "Save" on any chatbot answer to keep it here.</p>
+      <p class="empty-state" data-i18n="bookmarksEmpty">No saved answers yet. Long-press or use "Save" on any chatbot answer to keep it here.</p>
     </div>
   </div>
 </main>
@@ -194,78 +197,87 @@
 <!-- ===================== MORE (TOOLS HUB) SCREEN ===================== -->
 <main id="screen-more" class="screen">
   <div class="card account-card">
-    <p class="account-label">Signed in as</p>
+    <p class="account-label" data-i18n="accountSignedInAs">Signed in as</p>
     <p id="account-user-name" class="account-name">—</p>
-    <button class="small-btn" id="more-logout-btn">Log Out</button>
+    <button class="small-btn" id="more-logout-btn" data-i18n="logOut">Log Out</button>
+    <div class="language-row">
+      <label for="language-select" data-i18n="language">Language</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ms">Bahasa Malaysia</option>
+        <option value="zh">中文</option>
+        <option value="ta">தமிழ்</option>
+      </select>
+    </div>
   </div>
 
   <div class="more-grid">
     <button class="more-tile" data-screen="tasbih">
-      <span class="more-tile-icon">📿</span>Dhikr Counter
+      <span class="more-tile-icon">📿</span><span data-i18n="tileDhikr">Dhikr Counter</span>
     </button>
     <button class="more-tile" data-screen="hadith">
-      <span class="more-tile-icon">📜</span>Hadith
+      <span class="more-tile-icon">📜</span><span data-i18n="tileHadith">Hadith</span>
     </button>
     <button class="more-tile" data-screen="names">
-      <span class="more-tile-icon">✨</span>99 Names
+      <span class="more-tile-icon">✨</span><span data-i18n="tileNames">99 Names</span>
     </button>
     <button class="more-tile" data-screen="duas">
-      <span class="more-tile-icon">🤲</span>Duas
+      <span class="more-tile-icon">🤲</span><span data-i18n="tileDuas">Duas</span>
     </button>
     <button class="more-tile" data-screen="zakat">
-      <span class="more-tile-icon">🧮</span>Zakat Calculator
+      <span class="more-tile-icon">🧮</span><span data-i18n="tileZakat">Zakat Calculator</span>
     </button>
     <button class="more-tile" data-screen="calendar">
-      <span class="more-tile-icon">🗓️</span>Hijri Calendar
+      <span class="more-tile-icon">🗓️</span><span data-i18n="tileCalendar">Hijri Calendar</span>
     </button>
     <button class="more-tile" data-screen="nearby">
-      <span class="more-tile-icon">📍</span>Nearby
+      <span class="more-tile-icon">📍</span><span data-i18n="tileNearby">Nearby</span>
     </button>
     <button class="more-tile" data-screen="howtopray">
-      <span class="more-tile-icon">🙏</span>How to Pray
+      <span class="more-tile-icon">🙏</span><span data-i18n="tileHowToPray">How to Pray</span>
     </button>
     <button class="more-tile" data-screen="ramadan">
-      <span class="more-tile-icon">🌙</span>Ramadan Mode
+      <span class="more-tile-icon">🌙</span><span data-i18n="tileRamadan">Ramadan Mode</span>
     </button>
     <button class="more-tile" data-screen="faraid">
-      <span class="more-tile-icon">⚖️</span>Faraid Calculator
+      <span class="more-tile-icon">⚖️</span><span data-i18n="tileFaraid">Faraid Calculator</span>
     </button>
     <button class="more-tile" data-screen="bookmarks">
-      <span class="more-tile-icon">🔖</span>Saved Answers
+      <span class="more-tile-icon">🔖</span><span data-i18n="tileSaved">Saved Answers</span>
     </button>
   </div>
 
   <div class="app-footer">
-    <button class="small-btn" id="exit-app-btn">Exit App</button>
-    <p class="footer-disclaimer">Deen Assist's chatbot uses AI and may occasionally make mistakes. For religious rulings (fatwa) or important personal decisions, please consult a qualified Islamic scholar.</p>
-    <p class="footer-copyright">© 2026 Musufa Sdn. Bhd. All rights reserved.</p>
+    <button class="small-btn" id="exit-app-btn" data-i18n="exitApp">Exit App</button>
+    <p class="footer-disclaimer" data-i18n="aiDisclaimer">Deen Assist's chatbot uses AI and may occasionally make mistakes. For religious rulings (fatwa) or important personal decisions, please consult a qualified Islamic scholar.</p>
+    <p class="footer-copyright" data-i18n="copyright">© 2026 Musufa Sdn. Bhd. All rights reserved.</p>
   </div>
 </main>
 
 <!-- ===================== HADITH SCREEN ===================== -->
 <main id="screen-hadith" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div id="hadith-book-view">
-    <p class="quran-hint">Choose a collection to browse or search.</p>
+    <p class="quran-hint" data-i18n="hadithChooseCollection">Choose a collection to browse or search.</p>
     <div id="hadith-book-list" class="quran-surah-list">
-      <p class="empty-state">Loading collections…</p>
+      <p class="empty-state" data-i18n="loadingCollections">Loading collections…</p>
     </div>
   </div>
   <div id="hadith-section-view" style="display:none;">
     <div class="quran-detail-header">
-      <button class="small-btn" id="hadith-back-to-books">‹ Collections</button>
+      <button class="small-btn" id="hadith-back-to-books" data-i18n="backToCollections">‹ Collections</button>
       <h2 id="hadith-book-title"></h2>
     </div>
     <div class="card quran-search-card">
-      <input type="search" id="hadith-search-input" placeholder="Search this collection…" />
-      <button class="small-btn" id="hadith-search-btn">Search</button>
+      <input type="search" id="hadith-search-input" placeholder="Search this collection…" data-i18n-placeholder="hadithSearchPlaceholder" />
+      <button class="small-btn" id="hadith-search-btn" data-i18n="search">Search</button>
     </div>
     <div id="hadith-search-results"></div>
     <div id="hadith-chapter-list" class="quran-surah-list"></div>
   </div>
   <div id="hadith-list-view" style="display:none;">
     <div class="quran-detail-header">
-      <button class="small-btn" id="hadith-back-to-chapters">‹ Chapters</button>
+      <button class="small-btn" id="hadith-back-to-chapters" data-i18n="backToChapters">‹ Chapters</button>
       <h2 id="hadith-chapter-title"></h2>
     </div>
     <div id="hadith-items-list"></div>
@@ -274,15 +286,15 @@
 
 <!-- ===================== 99 NAMES SCREEN ===================== -->
 <main id="screen-names" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div id="names-grid" class="names-grid">
-    <p class="empty-state">Loading…</p>
+    <p class="empty-state" data-i18n="loading">Loading…</p>
   </div>
 </main>
 
 <!-- ===================== DUAS SCREEN ===================== -->
 <main id="screen-duas" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div id="duas-category-view">
     <div id="duas-category-list" class="quran-surah-list"></div>
   </div>
@@ -297,33 +309,33 @@
 
 <!-- ===================== ZAKAT CALCULATOR SCREEN ===================== -->
 <main id="screen-zakat" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="card">
-    <h2>Zakat Calculator</h2>
-    <p class="quran-hint">Zakat is due at 2.5% of zakatable wealth once it meets or exceeds the nisab threshold (612.36g of silver), held for one lunar year.</p>
+    <h2 data-i18n="zakatTitle">Zakat Calculator</h2>
+    <p class="quran-hint" data-i18n="zakatExplainer">Zakat is due at 2.5% of zakatable wealth once it meets or exceeds the nisab threshold (612.36g of silver), held for one lunar year.</p>
     <form id="zakat-form" class="zakat-form">
-      <label>Silver price (per gram, your currency)
+      <label><span data-i18n="zakatSilverPrice">Silver price (per gram, your currency)</span>
         <input type="number" id="zakat-silver-price" min="0" step="0.01" required />
       </label>
-      <label>Cash &amp; bank savings
+      <label><span data-i18n="zakatCash">Cash &amp; bank savings</span>
         <input type="number" id="zakat-cash" min="0" step="0.01" value="0" />
       </label>
-      <label>Gold &amp; silver value
+      <label><span data-i18n="zakatMetals">Gold &amp; silver value</span>
         <input type="number" id="zakat-metals" min="0" step="0.01" value="0" />
       </label>
-      <label>Business assets / inventory
+      <label><span data-i18n="zakatBusiness">Business assets / inventory</span>
         <input type="number" id="zakat-business" min="0" step="0.01" value="0" />
       </label>
-      <label>Other investments
+      <label><span data-i18n="zakatInvestments">Other investments</span>
         <input type="number" id="zakat-investments" min="0" step="0.01" value="0" />
       </label>
-      <label>Debts owed to you (collectible)
+      <label><span data-i18n="zakatReceivable">Debts owed to you (collectible)</span>
         <input type="number" id="zakat-receivable" min="0" step="0.01" value="0" />
       </label>
-      <label>Debts you owe (due now)
+      <label><span data-i18n="zakatDebts">Debts you owe (due now)</span>
         <input type="number" id="zakat-debts" min="0" step="0.01" value="0" />
       </label>
-      <button type="submit">Calculate</button>
+      <button type="submit" data-i18n="calculate">Calculate</button>
     </form>
     <div id="zakat-result"></div>
   </div>
@@ -331,18 +343,18 @@
 
 <!-- ===================== HIJRI CALENDAR SCREEN ===================== -->
 <main id="screen-calendar" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="card">
-    <h2>Today</h2>
-    <p id="calendar-today" class="qibla-note">Loading…</p>
+    <h2 data-i18n="calendarToday">Today</h2>
+    <p id="calendar-today" class="qibla-note" data-i18n="loading">Loading…</p>
   </div>
   <div class="card">
-    <h2>Date Converter</h2>
+    <h2 data-i18n="calendarConverter">Date Converter</h2>
     <div class="calendar-converter">
       <div class="calendar-converter-col">
-        <label>Gregorian date</label>
+        <label data-i18n="calendarGregorian">Gregorian date</label>
         <input type="date" id="calendar-gregorian-input" />
-        <button class="small-btn" id="calendar-to-hijri-btn">Convert to Hijri</button>
+        <button class="small-btn" id="calendar-to-hijri-btn" data-i18n="calendarConvert">Convert to Hijri</button>
       </div>
     </div>
     <p id="calendar-result" class="qibla-note"></p>
@@ -351,21 +363,21 @@
 
 <!-- ===================== NEARBY SCREEN ===================== -->
 <main id="screen-nearby" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="nearby-tabs">
-    <button class="nearby-tab active" id="nearby-tab-mosque">🕌 Mosques &amp; Suraus</button>
-    <button class="nearby-tab" id="nearby-tab-halal">🍽️ Halal Food</button>
+    <button class="nearby-tab active" id="nearby-tab-mosque" data-i18n="nearbyTabMosque">🕌 Mosques &amp; Suraus</button>
+    <button class="nearby-tab" id="nearby-tab-halal" data-i18n="nearbyTabHalal">🍽️ Halal Food</button>
   </div>
   <p id="nearby-status" class="qibla-note"></p>
   <div id="nearby-results"></div>
-  <p class="quran-hint">Data from OpenStreetMap contributors — coverage varies by area and may be incomplete.</p>
+  <p class="quran-hint" data-i18n="nearbyOsmNote">Data from OpenStreetMap contributors — coverage varies by area and may be incomplete.</p>
 </main>
 
 <!-- ===================== HOW TO PRAY SCREEN ===================== -->
 <main id="screen-howtopray" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="card">
-    <h2>Rakahs per Prayer</h2>
+    <h2 data-i18n="htpRakahTitle">Rakahs per Prayer</h2>
     <ul class="prayer-list" id="how-to-pray-counts"></ul>
   </div>
   <div id="how-to-pray-steps"></div>
@@ -373,51 +385,51 @@
 
 <!-- ===================== RAMADAN MODE SCREEN ===================== -->
 <main id="screen-ramadan" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="card" id="ramadan-status"></div>
   <div class="card" id="ramadan-times-card" style="display:none;">
-    <h2>Suhoor &amp; Iftar</h2>
+    <h2 data-i18n="ramadanSuhoorIftar">Suhoor &amp; Iftar</h2>
     <ul class="prayer-list" id="ramadan-times"></ul>
   </div>
   <div class="card">
-    <h2>Fasting Tracker</h2>
-    <p class="quran-hint">Tap a day to mark it as fasted.</p>
+    <h2 data-i18n="ramadanFastingTracker">Fasting Tracker</h2>
+    <p class="quran-hint" data-i18n="ramadanTapHint">Tap a day to mark it as fasted.</p>
     <div class="ramadan-fasting-grid" id="ramadan-fasting-grid"></div>
     <p class="qibla-note" id="ramadan-fasted-count"></p>
   </div>
   <div class="card">
-    <h2>Qada (Make-up) Days Owed</h2>
-    <p class="quran-hint">Track missed fasts from previous years you still need to make up.</p>
+    <h2 data-i18n="ramadanQadaTitle">Qada (Make-up) Days Owed</h2>
+    <p class="quran-hint" data-i18n="ramadanQadaHint">Track missed fasts from previous years you still need to make up.</p>
     <input type="number" id="ramadan-qada-input" min="0" class="ramadan-qada-input" />
   </div>
 </main>
 
 <!-- ===================== FARAID CALCULATOR SCREEN ===================== -->
 <main id="screen-faraid" class="screen">
-  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <button class="small-btn back-to-more-btn" data-back-to="more" data-i18n="backToMore">‹ More</button>
   <div class="card">
-    <h2>Faraid (Inheritance) Calculator</h2>
-    <p class="quran-hint">Covers the most common heirs — spouse, children, and parents — under standard Sunni fixed-share rules. For estates involving siblings, grandparents, or other heirs, please consult a qualified Faraid officer.</p>
+    <h2 data-i18n="faraidTitle">Faraid (Inheritance) Calculator</h2>
+    <p class="quran-hint" data-i18n="faraidScopeNote">Covers the most common heirs — spouse, children, and parents — under standard Sunni fixed-share rules. For estates involving siblings, grandparents, or other heirs, please consult a qualified Faraid officer.</p>
     <form id="faraid-form" class="zakat-form">
-      <label>Surviving spouse
+      <label><span data-i18n="faraidSpouse">Surviving spouse</span>
         <select id="faraid-spouse">
-          <option value="none">None</option>
-          <option value="husband">Husband</option>
-          <option value="wife">Wife</option>
+          <option value="none" data-i18n="faraidSpouseNone">None</option>
+          <option value="husband" data-i18n="faraidSpouseHusband">Husband</option>
+          <option value="wife" data-i18n="faraidSpouseWife">Wife</option>
         </select>
       </label>
-      <label id="faraid-wife-count-row" style="display:none;">Number of surviving wives
+      <label id="faraid-wife-count-row" style="display:none;"><span data-i18n="faraidWifeCount">Number of surviving wives</span>
         <input type="number" id="faraid-wife-count" min="1" max="4" value="1" />
       </label>
-      <label>Number of sons
+      <label><span data-i18n="faraidSons">Number of sons</span>
         <input type="number" id="faraid-sons" min="0" value="0" />
       </label>
-      <label>Number of daughters
+      <label><span data-i18n="faraidDaughters">Number of daughters</span>
         <input type="number" id="faraid-daughters" min="0" value="0" />
       </label>
-      <label class="quran-toggle"><input type="checkbox" id="faraid-father" /> Father is alive</label>
-      <label class="quran-toggle"><input type="checkbox" id="faraid-mother" /> Mother is alive</label>
-      <button type="submit">Calculate</button>
+      <label class="quran-toggle"><input type="checkbox" id="faraid-father" /> <span data-i18n="faraidFather">Father is alive</span></label>
+      <label class="quran-toggle"><input type="checkbox" id="faraid-mother" /> <span data-i18n="faraidMother">Mother is alive</span></label>
+      <button type="submit" data-i18n="calculate">Calculate</button>
     </form>
     <div id="faraid-result"></div>
   </div>
@@ -426,25 +438,26 @@
 <!-- ===================== BOTTOM NAVIGATION ===================== -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-screen="chat">
-    <span class="nav-icon">💬</span>Chat
+    <span class="nav-icon">💬</span><span data-i18n="navChat">Chat</span>
   </button>
   <button class="nav-btn" data-screen="quran">
-    <span class="nav-icon">📖</span>Quran
+    <span class="nav-icon">📖</span><span data-i18n="navQuran">Quran</span>
   </button>
   <button class="nav-btn" data-screen="prayer">
-    <span class="nav-icon">🕌</span>Prayer
+    <span class="nav-icon">🕌</span><span data-i18n="navPrayer">Prayer</span>
   </button>
   <button class="nav-btn" data-screen="qibla">
-    <span class="nav-icon">🧭</span>Qibla
+    <span class="nav-icon">🧭</span><span data-i18n="navQibla">Qibla</span>
   </button>
   <button class="nav-btn" data-screen="more">
-    <span class="nav-icon">☰</span>More
+    <span class="nav-icon">☰</span><span data-i18n="navMore">More</span>
   </button>
 </nav>
 
 </div><!-- /#app-root -->
 
 <script type="module" src="js/auth.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/quran.js"></script>
 <script src="js/hadith.js"></script>
 <script src="js/names.js"></script>

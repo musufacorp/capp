@@ -552,6 +552,24 @@ body {
   word-break: break-word;
 }
 
+.language-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.language-row select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 13px;
+}
+
 /* App footer (More hub) */
 .app-footer {
   margin-top: 20px;

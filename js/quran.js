@@ -10,10 +10,6 @@
 // ============================================================
 
 const QURAN_API = "https://api.alquran.cloud/v1";
-const TRANSLATION_EDITIONS = {
-  "en.sahih": "English (Sahih International)",
-  "ms.basmeih": "Bahasa Malaysia"
-};
 
 let surahs = [];
 let quranInitialized = false;
@@ -80,6 +76,7 @@ async function openSurah(surahNumber, scrollToAyah) {
   const surahMeta = surahs.find((s) => s.number === surahNumber);
   if (!surahMeta) return;
 
+  stopAllPlayback();
   showDetailView();
   currentSurahMeta = surahMeta;
   el("quran-detail-title").textContent = `${surahMeta.englishName} (${surahMeta.name})`;
@@ -161,21 +158,39 @@ function renderAyahs() {
 }
 
 // ---------- Audio playback ----------
+// Two modes share one <audio> element: single-ayah play/pause, and
+// "Play Surah" continuous playback that auto-advances until the user
+// stops it or the surah finishes.
 let currentPlayingBtn = null;
+let continuousPlayActive = false;
+
+function playSurahLabel(key) {
+  return window.deenAssistT ? window.deenAssistT(key) : { playSurah: "▶ Play Surah", stopSurah: "⏹ Stop" }[key];
+}
+
+function stopAllPlayback() {
+  const audio = el("quran-audio-player");
+  audio.pause();
+  audio.onended = null;
+  if (currentPlayingBtn) {
+    currentPlayingBtn.textContent = "▶";
+    currentPlayingBtn = null;
+  }
+  if (continuousPlayActive) {
+    continuousPlayActive = false;
+    const playSurahBtn = el("quran-play-surah-btn");
+    if (playSurahBtn) playSurahBtn.textContent = playSurahLabel("playSurah");
+  }
+}
 
 function togglePlayAyah(surahNumber, ayahNumber, btn) {
   const audio = el("quran-audio-player");
+  const wasThisButtonPlaying = currentPlayingBtn === btn && !audio.paused && !continuousPlayActive;
+
+  stopAllPlayback();
+  if (wasThisButtonPlaying) return; // tapping the currently-playing ayah again just stops it
+
   const url = getAudioUrl(surahNumber, ayahNumber);
-
-  if (currentPlayingBtn === btn && !audio.paused) {
-    audio.pause();
-    btn.textContent = "▶";
-    currentPlayingBtn = null;
-    return;
-  }
-
-  if (currentPlayingBtn) currentPlayingBtn.textContent = "▶";
-
   audio.src = url;
   audio.play().catch((err) => console.error("Quran audio playback failed:", err));
   btn.textContent = "⏸";
@@ -185,6 +200,48 @@ function togglePlayAyah(surahNumber, ayahNumber, btn) {
     btn.textContent = "▶";
     currentPlayingBtn = null;
   };
+}
+
+function playSurahAyahAtIndex(index) {
+  const audio = el("quran-audio-player");
+
+  if (!currentSurahAyahs || index >= currentSurahAyahs.arabic.length) {
+    stopAllPlayback(); // reached the end of the surah
+    return;
+  }
+
+  const ayah = currentSurahAyahs.arabic[index];
+  if (currentPlayingBtn) currentPlayingBtn.textContent = "▶";
+
+  audio.src = getAudioUrl(currentSurahMeta.number, ayah.numberInSurah);
+  audio.play().catch((err) => console.error("Quran audio playback failed:", err));
+
+  const btn = document.querySelector(`.quran-play-btn[data-ayah="${ayah.numberInSurah}"]`);
+  if (btn) {
+    btn.textContent = "⏸";
+    currentPlayingBtn = btn;
+  }
+
+  const card = document.getElementById(`quran-ayah-${ayah.numberInSurah}`);
+  if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  audio.onended = () => {
+    if (continuousPlayActive) playSurahAyahAtIndex(index + 1);
+  };
+}
+
+function toggleContinuousPlay() {
+  const playSurahBtn = el("quran-play-surah-btn");
+  if (continuousPlayActive) {
+    stopAllPlayback();
+    return;
+  }
+  if (!currentSurahAyahs) return;
+
+  stopAllPlayback();
+  continuousPlayActive = true;
+  playSurahBtn.textContent = playSurahLabel("stopSurah");
+  playSurahAyahAtIndex(0);
 }
 
 // ---------- Search ----------
@@ -241,19 +298,20 @@ function initQuran() {
   quranInitialized = true;
 
   loadSurahList();
+  el("quran-play-surah-btn").textContent = playSurahLabel("playSurah");
 
   el("quran-back-btn").addEventListener("click", () => {
-    const audio = el("quran-audio-player");
-    audio.pause();
-    if (currentPlayingBtn) currentPlayingBtn.textContent = "▶";
-    currentPlayingBtn = null;
+    stopAllPlayback();
     showListView();
   });
+
+  el("quran-play-surah-btn").addEventListener("click", toggleContinuousPlay);
 
   el("quran-toggle-transliteration").addEventListener("change", renderAyahs);
   el("quran-toggle-translation").addEventListener("change", renderAyahs);
 
   el("quran-translation-select").addEventListener("change", async (e) => {
+    stopAllPlayback();
     currentTranslationEdition = e.target.value;
     if (currentSurahMeta) {
       el("quran-ayah-list").innerHTML = `<p class="empty-state">Loading…</p>`;

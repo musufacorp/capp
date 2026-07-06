@@ -13,6 +13,9 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+// ---------- Language (English / Malay / Mandarin / Tamil) ----------
+window.initI18n && window.initI18n();
+
 // ---------- Verse/Hadith of the Day (shown on the welcome screen) ----------
 window.initDailyHighlights && window.initDailyHighlights();
 
@@ -31,23 +34,23 @@ const screens = document.querySelectorAll(".screen");
 const navButtons = document.querySelectorAll(".nav-btn");
 const headerTitle = document.getElementById("header-title");
 
-const screenTitles = {
-  chat: "Deen Assist",
-  prayer: "Prayer Times",
-  quran: "Digital Quran",
-  qibla: "Qibla Direction",
-  more: "More",
-  tasbih: "Dhikr Counter",
-  bookmarks: "Saved Answers",
-  hadith: "Hadith",
-  names: "99 Names of Allah",
-  duas: "Duas",
-  zakat: "Zakat Calculator",
-  calendar: "Hijri Calendar",
-  nearby: "Nearby",
-  howtopray: "How to Pray",
-  ramadan: "Ramadan Mode",
-  faraid: "Faraid Calculator"
+const SCREEN_TITLE_KEYS = {
+  chat: "titleChat",
+  prayer: "titlePrayer",
+  quran: "titleQuran",
+  qibla: "titleQibla",
+  more: "titleMore",
+  tasbih: "titleTasbih",
+  bookmarks: "titleBookmarks",
+  hadith: "titleHadith",
+  names: "titleNames",
+  duas: "titleDuas",
+  zakat: "titleZakat",
+  calendar: "titleCalendar",
+  nearby: "titleNearby",
+  howtopray: "titleHowToPray",
+  ramadan: "titleRamadan",
+  faraid: "titleFaraid"
 };
 
 // Screens reachable only via the "More" hub keep the More nav button highlighted
@@ -75,7 +78,8 @@ function goToScreen(target) {
   const activeNavBtn = document.querySelector(`.nav-btn[data-screen="${activeNavTarget}"]`);
   if (activeNavBtn) activeNavBtn.classList.add("active");
 
-  headerTitle.textContent = screenTitles[target] || "Deen Assist";
+  const titleKey = SCREEN_TITLE_KEYS[target] || "titleChat";
+  headerTitle.textContent = window.deenAssistT ? window.deenAssistT(titleKey) : "Deen Assist";
 
   // Lazy-load data the first time a screen is opened
   if (target === "prayer" && !prayerLoaded) loadPrayerTimes();
@@ -282,10 +286,8 @@ const reminderStatusEl = document.getElementById("prayer-reminder-status");
 
 function updateReminderUI() {
   const enabled = localStorage.getItem("deenassist-reminders-enabled") === "1";
-  reminderToggleBtn.textContent = enabled ? "Disable Prayer Reminders" : "Enable Prayer Reminders";
-  reminderStatusEl.textContent = enabled
-    ? "Reminders are on — you'll be notified at each prayer time while the app stays open in the background."
-    : "";
+  reminderToggleBtn.textContent = window.deenAssistT(enabled ? "disableReminders" : "enableReminders");
+  reminderStatusEl.textContent = enabled ? window.deenAssistT("remindersOnStatus") : "";
 }
 updateReminderUI();
 
@@ -301,7 +303,7 @@ reminderToggleBtn.addEventListener("click", async () => {
   }
 
   if (!("Notification" in window)) {
-    reminderStatusEl.textContent = "Notifications aren't supported on this browser.";
+    reminderStatusEl.textContent = window.deenAssistT("notificationsNotSupported");
     return;
   }
 
@@ -311,7 +313,7 @@ reminderToggleBtn.addEventListener("click", async () => {
     if (todaysPrayers) scheduleReminders(todaysPrayers);
     updateReminderUI();
   } else {
-    reminderStatusEl.textContent = "Notification permission was not granted.";
+    reminderStatusEl.textContent = window.deenAssistT("notificationPermissionDenied");
   }
 });
 
@@ -392,7 +394,7 @@ if (targetIndex === -1) targetIndex = 0;
 
 function renderTasbih() {
   tasbihCountEl.textContent = tasbihCount;
-  tasbihTargetLabel.textContent = `Target: ${targets[targetIndex]}`;
+  tasbihTargetLabel.textContent = `${window.deenAssistT("tasbihTargetWord")}: ${targets[targetIndex]}`;
 }
 renderTasbih();
 
@@ -512,4 +514,18 @@ window.addEventListener("message", (event) => {
   if (event.data && event.data.type === "deenassist-save" && event.data.text) {
     window.saveBookmark(event.data.text);
   }
+});
+
+// ---------- Refresh dynamically-generated text when language changes ----------
+// (data-i18n elements are handled automatically by i18n.js; this covers text
+// that was written with textContent from a template string, not a fixed key)
+document.addEventListener("deenassist-lang-changed", () => {
+  const activeScreen = document.querySelector(".screen.active");
+  if (activeScreen) {
+    const target = activeScreen.id.replace("screen-", "");
+    const titleKey = SCREEN_TITLE_KEYS[target] || "titleChat";
+    headerTitle.textContent = window.deenAssistT(titleKey);
+  }
+  updateReminderUI();
+  renderTasbih();
 });
