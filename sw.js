@@ -1,6 +1,6 @@
 // Deen Assist — Service Worker
 // Bump this version any time you change cached files, so users get the update.
-const CACHE_NAME = "deen-assist-cache-v11";
+const CACHE_NAME = "deen-assist-cache-v12";
 
 const APP_SHELL = [
   "./",

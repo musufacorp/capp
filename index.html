@@ -67,6 +67,12 @@
   <h1 id="header-title">Deen Assist</h1>
   <div class="header-actions">
     <span id="user-email-label" class="user-email"></span>
+    <select id="language-select" class="header-lang-select" aria-label="Language">
+      <option value="en">EN</option>
+      <option value="ms">BM</option>
+      <option value="zh">中文</option>
+      <option value="ta">தமிழ்</option>
+    </select>
     <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     <button class="icon-btn" id="signout-btn" aria-label="Sign out">⎋</button>
   </div>
@@ -200,15 +206,6 @@
     <p class="account-label" data-i18n="accountSignedInAs">Signed in as</p>
     <p id="account-user-name" class="account-name">—</p>
     <button class="small-btn" id="more-logout-btn" data-i18n="logOut">Log Out</button>
-    <div class="language-row">
-      <label for="language-select" data-i18n="language">Language</label>
-      <select id="language-select">
-        <option value="en">English</option>
-        <option value="ms">Bahasa Malaysia</option>
-        <option value="zh">中文</option>
-        <option value="ta">தமிழ்</option>
-      </select>
-    </div>
   </div>
 
   <div class="more-grid">

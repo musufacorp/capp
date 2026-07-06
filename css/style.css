@@ -552,24 +552,6 @@ body {
   word-break: break-word;
 }
 
-.language-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--color-text-muted);
-}
-
-.language-row select {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-size: 13px;
-}
-
 /* App footer (More hub) */
 .app-footer {
   margin-top: 20px;
@@ -1059,6 +1041,21 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: 4px;
+}
+
+.header-lang-select {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.header-lang-select option {
+  color: var(--color-text);
+  background: var(--color-surface);
 }
 #offline-banner {
   display: none;
