@@ -81,6 +81,15 @@
     <p class="chat-welcome-disclaimer">The chatbot uses AI and may occasionally make mistakes. For religious rulings (fatwa) or important personal decisions, please consult a qualified Islamic scholar.</p>
     <button class="launch-btn" id="launch-chat-btn">Launch Deen Assist</button>
     <p class="chat-welcome-hint">Not looking for the chatbot? Check out Quran, Prayer, Qibla, and More in the tabs below.</p>
+
+    <div class="card daily-card">
+      <p class="daily-label">Verse of the Day</p>
+      <div id="daily-verse-content"><p class="empty-state">Loading…</p></div>
+    </div>
+    <div class="card daily-card">
+      <p class="daily-label">Hadith of the Day</p>
+      <div id="daily-hadith-content"><p class="empty-state">Loading…</p></div>
+    </div>
   </div>
   <!--
     The chatbot iframe's src is only set when the user taps "Launch Deen
@@ -104,6 +113,8 @@
       <li>Loading…</li>
     </ul>
     <p class="countdown" id="prayer-countdown"></p>
+    <button class="small-btn" id="prayer-reminder-toggle">Enable Prayer Reminders</button>
+    <p class="quran-hint" id="prayer-reminder-status"></p>
   </div>
 </main>
 
@@ -209,6 +220,15 @@
     </button>
     <button class="more-tile" data-screen="nearby">
       <span class="more-tile-icon">📍</span>Nearby
+    </button>
+    <button class="more-tile" data-screen="howtopray">
+      <span class="more-tile-icon">🙏</span>How to Pray
+    </button>
+    <button class="more-tile" data-screen="ramadan">
+      <span class="more-tile-icon">🌙</span>Ramadan Mode
+    </button>
+    <button class="more-tile" data-screen="faraid">
+      <span class="more-tile-icon">⚖️</span>Faraid Calculator
     </button>
     <button class="more-tile" data-screen="bookmarks">
       <span class="more-tile-icon">🔖</span>Saved Answers
@@ -341,6 +361,68 @@
   <p class="quran-hint">Data from OpenStreetMap contributors — coverage varies by area and may be incomplete.</p>
 </main>
 
+<!-- ===================== HOW TO PRAY SCREEN ===================== -->
+<main id="screen-howtopray" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div class="card">
+    <h2>Rakahs per Prayer</h2>
+    <ul class="prayer-list" id="how-to-pray-counts"></ul>
+  </div>
+  <div id="how-to-pray-steps"></div>
+</main>
+
+<!-- ===================== RAMADAN MODE SCREEN ===================== -->
+<main id="screen-ramadan" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div class="card" id="ramadan-status"></div>
+  <div class="card" id="ramadan-times-card" style="display:none;">
+    <h2>Suhoor &amp; Iftar</h2>
+    <ul class="prayer-list" id="ramadan-times"></ul>
+  </div>
+  <div class="card">
+    <h2>Fasting Tracker</h2>
+    <p class="quran-hint">Tap a day to mark it as fasted.</p>
+    <div class="ramadan-fasting-grid" id="ramadan-fasting-grid"></div>
+    <p class="qibla-note" id="ramadan-fasted-count"></p>
+  </div>
+  <div class="card">
+    <h2>Qada (Make-up) Days Owed</h2>
+    <p class="quran-hint">Track missed fasts from previous years you still need to make up.</p>
+    <input type="number" id="ramadan-qada-input" min="0" class="ramadan-qada-input" />
+  </div>
+</main>
+
+<!-- ===================== FARAID CALCULATOR SCREEN ===================== -->
+<main id="screen-faraid" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div class="card">
+    <h2>Faraid (Inheritance) Calculator</h2>
+    <p class="quran-hint">Covers the most common heirs — spouse, children, and parents — under standard Sunni fixed-share rules. For estates involving siblings, grandparents, or other heirs, please consult a qualified Faraid officer.</p>
+    <form id="faraid-form" class="zakat-form">
+      <label>Surviving spouse
+        <select id="faraid-spouse">
+          <option value="none">None</option>
+          <option value="husband">Husband</option>
+          <option value="wife">Wife</option>
+        </select>
+      </label>
+      <label id="faraid-wife-count-row" style="display:none;">Number of surviving wives
+        <input type="number" id="faraid-wife-count" min="1" max="4" value="1" />
+      </label>
+      <label>Number of sons
+        <input type="number" id="faraid-sons" min="0" value="0" />
+      </label>
+      <label>Number of daughters
+        <input type="number" id="faraid-daughters" min="0" value="0" />
+      </label>
+      <label class="quran-toggle"><input type="checkbox" id="faraid-father" /> Father is alive</label>
+      <label class="quran-toggle"><input type="checkbox" id="faraid-mother" /> Mother is alive</label>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="faraid-result"></div>
+  </div>
+</main>
+
 <!-- ===================== BOTTOM NAVIGATION ===================== -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-screen="chat">
@@ -370,6 +452,10 @@
 <script src="js/zakat.js"></script>
 <script src="js/hijri.js"></script>
 <script src="js/nearby.js"></script>
+<script src="js/daily.js"></script>
+<script src="js/how-to-pray.js"></script>
+<script src="js/ramadan.js"></script>
+<script src="js/faraid.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

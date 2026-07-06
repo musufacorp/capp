@@ -717,6 +717,88 @@ body {
   font-size: 15px;
 }
 
+/* Verse/Hadith of the Day */
+.daily-card {
+  width: 100%;
+  max-width: 340px;
+  text-align: left;
+}
+
+.daily-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-primary-light);
+  margin: 0 0 8px;
+}
+
+.daily-arabic {
+  text-align: right;
+  font-size: 20px;
+  line-height: 1.7;
+  margin: 0 0 8px;
+}
+
+.daily-translation {
+  font-size: 13px;
+  font-style: italic;
+  margin: 0 0 6px;
+}
+
+.daily-ref {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* How to Pray */
+.htp-step-card h2 {
+  font-size: 15px;
+}
+
+.htp-step-body {
+  font-size: 13px;
+  color: var(--color-text);
+  border-top: 1px solid var(--color-border);
+  padding-top: 8px;
+  margin: 0;
+}
+
+/* Ramadan mode */
+.ramadan-fasting-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.ramadan-day-btn {
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ramadan-day-btn.fasted {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.ramadan-qada-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 15px;
+}
+
 /* Nearby (mosques/suraus & halal food) */
 .nearby-tabs {
   display: flex;

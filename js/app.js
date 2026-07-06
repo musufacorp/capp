@@ -13,6 +13,9 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+// ---------- Verse/Hadith of the Day (shown on the welcome screen) ----------
+window.initDailyHighlights && window.initDailyHighlights();
+
 // ---------- Chatbot: load the iframe only when the user launches it ----------
 // Avoids starting a Copilot Studio session (and its compute cost) for every
 // visitor who opens the app, when many just want prayer times, Quran, etc.
@@ -41,11 +44,17 @@ const screenTitles = {
   duas: "Duas",
   zakat: "Zakat Calculator",
   calendar: "Hijri Calendar",
-  nearby: "Nearby"
+  nearby: "Nearby",
+  howtopray: "How to Pray",
+  ramadan: "Ramadan Mode",
+  faraid: "Faraid Calculator"
 };
 
 // Screens reachable only via the "More" hub keep the More nav button highlighted
-const MORE_HUB_SCREENS = new Set(["more", "tasbih", "bookmarks", "hadith", "names", "duas", "zakat", "calendar", "nearby"]);
+const MORE_HUB_SCREENS = new Set([
+  "more", "tasbih", "bookmarks", "hadith", "names", "duas", "zakat", "calendar",
+  "nearby", "howtopray", "ramadan", "faraid"
+]);
 
 let quranLoaded = false;
 let hadithLoaded = false;
@@ -53,6 +62,9 @@ let namesLoaded = false;
 let duasLoaded = false;
 let calendarLoaded = false;
 let nearbyLoaded = false;
+let howToPrayLoaded = false;
+let ramadanLoaded = false;
+let faraidLoaded = false;
 
 function goToScreen(target) {
   screens.forEach((s) => s.classList.remove("active"));
@@ -90,6 +102,18 @@ function goToScreen(target) {
   if (target === "nearby" && !nearbyLoaded) {
     nearbyLoaded = true;
     window.initNearby && window.initNearby();
+  }
+  if (target === "howtopray" && !howToPrayLoaded) {
+    howToPrayLoaded = true;
+    window.initHowToPray && window.initHowToPray();
+  }
+  if (target === "ramadan" && !ramadanLoaded) {
+    ramadanLoaded = true;
+    window.initRamadan && window.initRamadan();
+  }
+  if (target === "faraid" && !faraidLoaded) {
+    faraidLoaded = true;
+    window.initFaraid && window.initFaraid();
   }
   if (target === "bookmarks") renderBookmarks();
 }
@@ -184,6 +208,11 @@ function loadPrayerTimes() {
         document.getElementById("prayer-countdown").textContent =
           `Next: ${prayers[nextIndex][0]} at ${formatTime(prayers[nextIndex][1])}`;
 
+        todaysPrayers = prayers;
+        if (localStorage.getItem("deenassist-reminders-enabled") === "1") {
+          scheduleReminders(prayers);
+        }
+
         prayerLoaded = true;
       } catch (err) {
         listEl.innerHTML = "<li>Unable to load prayer times. Check your connection.</li>";
@@ -206,6 +235,85 @@ function formatTime(hhmm) {
   const hour12 = h % 12 === 0 ? 12 : h % 12;
   return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
 }
+
+// ---------- Prayer time reminders ----------
+// Best-effort only: these fire via setTimeout + the Service Worker's
+// showNotification, which only works while this tab/app is open (or
+// backgrounded but not fully closed) and the browser process is alive.
+// There's no way for a plain web app to reliably wake up and notify
+// after being fully closed — that would need real push notifications
+// from a server, which this app doesn't have. iOS additionally requires
+// the app be installed to the home screen (iOS 16.4+) for this to work
+// at all.
+let todaysPrayers = null;
+let reminderTimeouts = [];
+
+function scheduleReminders(prayers) {
+  reminderTimeouts.forEach(clearTimeout);
+  reminderTimeouts = [];
+  const now = new Date();
+
+  prayers.forEach(([name, time]) => {
+    const [h, m] = time.split(":").map(Number);
+    const target = new Date();
+    target.setHours(h, m, 0, 0);
+    const delay = target.getTime() - now.getTime();
+    if (delay > 0) {
+      reminderTimeouts.push(setTimeout(() => notifyPrayerTime(name), delay));
+    }
+  });
+}
+
+async function notifyPrayerTime(name) {
+  if (Notification.permission !== "granted") return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    reg.showNotification("Deen Assist", {
+      body: `It's time for ${name} prayer.`,
+      icon: "icons/icon-192.png"
+    });
+  } catch {
+    new Notification("Deen Assist", { body: `It's time for ${name} prayer.` });
+  }
+}
+
+const reminderToggleBtn = document.getElementById("prayer-reminder-toggle");
+const reminderStatusEl = document.getElementById("prayer-reminder-status");
+
+function updateReminderUI() {
+  const enabled = localStorage.getItem("deenassist-reminders-enabled") === "1";
+  reminderToggleBtn.textContent = enabled ? "Disable Prayer Reminders" : "Enable Prayer Reminders";
+  reminderStatusEl.textContent = enabled
+    ? "Reminders are on — you'll be notified at each prayer time while the app stays open in the background."
+    : "";
+}
+updateReminderUI();
+
+reminderToggleBtn.addEventListener("click", async () => {
+  const enabled = localStorage.getItem("deenassist-reminders-enabled") === "1";
+
+  if (enabled) {
+    localStorage.setItem("deenassist-reminders-enabled", "0");
+    reminderTimeouts.forEach(clearTimeout);
+    reminderTimeouts = [];
+    updateReminderUI();
+    return;
+  }
+
+  if (!("Notification" in window)) {
+    reminderStatusEl.textContent = "Notifications aren't supported on this browser.";
+    return;
+  }
+
+  const permission = await Notification.requestPermission();
+  if (permission === "granted") {
+    localStorage.setItem("deenassist-reminders-enabled", "1");
+    if (todaysPrayers) scheduleReminders(todaysPrayers);
+    updateReminderUI();
+  } else {
+    reminderStatusEl.textContent = "Notification permission was not granted.";
+  }
+});
 
 // ============================================================
 // QIBLA DIRECTION — great-circle bearing to the Kaaba,
