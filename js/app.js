@@ -13,6 +13,16 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+// ---------- Chatbot: load the iframe only when the user launches it ----------
+// Avoids starting a Copilot Studio session (and its compute cost) for every
+// visitor who opens the app, when many just want prayer times, Quran, etc.
+document.getElementById("launch-chat-btn").addEventListener("click", () => {
+  const frame = document.getElementById("chatbot-frame");
+  if (!frame.src) frame.src = frame.dataset.src;
+  document.getElementById("chat-welcome-view").style.display = "none";
+  frame.style.display = "block";
+});
+
 // ---------- Bottom nav / screen switching ----------
 const screens = document.querySelectorAll(".screen");
 const navButtons = document.querySelectorAll(".nav-btn");

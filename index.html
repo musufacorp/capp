@@ -74,14 +74,25 @@
 
 <!-- ===================== CHATBOT SCREEN ===================== -->
 <main id="screen-chat" class="screen active">
+  <div id="chat-welcome-view" class="chat-welcome">
+    <img src="icons/icon-192.png" alt="Deen Assist" class="chat-welcome-logo" />
+    <h2>Welcome to Deen Assist</h2>
+    <p class="chat-welcome-text">Your Islamic companion by Musufa. Ask everyday questions about Islam, get guidance on rituals and daily life, and explore the Quran, Hadith, prayer times, duas, and more using the tools below.</p>
+    <p class="chat-welcome-disclaimer">The chatbot uses AI and may occasionally make mistakes. For religious rulings (fatwa) or important personal decisions, please consult a qualified Islamic scholar.</p>
+    <button class="launch-btn" id="launch-chat-btn">Launch Deen Assist</button>
+    <p class="chat-welcome-hint">Not looking for the chatbot? Check out Quran, Prayer, Qibla, and More in the tabs below.</p>
+  </div>
   <!--
-    Replace the src below with your actual embedded chatbot URL,
-    or swap this iframe for your existing chatbot's inline <script>/<div> embed code.
+    The chatbot iframe's src is only set when the user taps "Launch Deen
+    Assist" above — loading it by default on every app open would start a
+    Copilot Studio session (and its associated compute cost) for visitors
+    who only wanted prayer times, Quran, etc.
   -->
   <iframe id="chatbot-frame"
-    src="https://copilotstudio.microsoft.com/environments/Default-d9cbc7e3-d60b-4059-8ec0-d5319e89f43b/bots/cr43b_dinAssist/webchat?__version__=2"
+    data-src="https://copilotstudio.microsoft.com/environments/Default-d9cbc7e3-d60b-4059-8ec0-d5319e89f43b/bots/cr43b_dinAssist/webchat?__version__=2"
     title="Deen Assist Chatbot"
-    allow="microphone"></iframe>
+    allow="microphone"
+    style="display:none;"></iframe>
 </main>
 
 <!-- ===================== PRAYER TIMES SCREEN ===================== -->

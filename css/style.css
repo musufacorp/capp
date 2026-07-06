@@ -116,6 +116,65 @@ body {
   width: 100%;
   border: none;
   background: var(--color-surface);
+  box-sizing: border-box;
+  /* Leaves room so the bottom nav (fixed, overlaid) doesn't cover the
+     chatbot's own message input, which it otherwise anchors to the very
+     bottom of the iframe. */
+  padding-bottom: calc(72px + var(--safe-bottom));
+}
+
+.chat-welcome {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 32px 24px calc(72px + var(--safe-bottom));
+}
+
+.chat-welcome-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+}
+
+.chat-welcome h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.chat-welcome-text {
+  font-size: 14px;
+  color: var(--color-text);
+  max-width: 340px;
+  margin: 0;
+}
+
+.chat-welcome-disclaimer {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  max-width: 320px;
+  margin: 0;
+}
+
+.launch-btn {
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 6px 0;
+}
+
+.chat-welcome-hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
 }
 
 /* Prayer times */
