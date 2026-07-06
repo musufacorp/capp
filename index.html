@@ -207,6 +207,9 @@
     <button class="more-tile" data-screen="calendar">
       <span class="more-tile-icon">🗓️</span>Hijri Calendar
     </button>
+    <button class="more-tile" data-screen="nearby">
+      <span class="more-tile-icon">📍</span>Nearby
+    </button>
     <button class="more-tile" data-screen="bookmarks">
       <span class="more-tile-icon">🔖</span>Saved Answers
     </button>
@@ -326,6 +329,18 @@
   </div>
 </main>
 
+<!-- ===================== NEARBY SCREEN ===================== -->
+<main id="screen-nearby" class="screen">
+  <button class="small-btn back-to-more-btn" data-back-to="more">‹ More</button>
+  <div class="nearby-tabs">
+    <button class="nearby-tab active" id="nearby-tab-mosque">🕌 Mosques &amp; Suraus</button>
+    <button class="nearby-tab" id="nearby-tab-halal">🍽️ Halal Food</button>
+  </div>
+  <p id="nearby-status" class="qibla-note"></p>
+  <div id="nearby-results"></div>
+  <p class="quran-hint">Data from OpenStreetMap contributors — coverage varies by area and may be incomplete.</p>
+</main>
+
 <!-- ===================== BOTTOM NAVIGATION ===================== -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-screen="chat">
@@ -354,6 +369,7 @@
 <script src="js/duas.js"></script>
 <script src="js/zakat.js"></script>
 <script src="js/hijri.js"></script>
+<script src="js/nearby.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -40,17 +40,19 @@ const screenTitles = {
   names: "99 Names of Allah",
   duas: "Duas",
   zakat: "Zakat Calculator",
-  calendar: "Hijri Calendar"
+  calendar: "Hijri Calendar",
+  nearby: "Nearby"
 };
 
 // Screens reachable only via the "More" hub keep the More nav button highlighted
-const MORE_HUB_SCREENS = new Set(["more", "tasbih", "bookmarks", "hadith", "names", "duas", "zakat", "calendar"]);
+const MORE_HUB_SCREENS = new Set(["more", "tasbih", "bookmarks", "hadith", "names", "duas", "zakat", "calendar", "nearby"]);
 
 let quranLoaded = false;
 let hadithLoaded = false;
 let namesLoaded = false;
 let duasLoaded = false;
 let calendarLoaded = false;
+let nearbyLoaded = false;
 
 function goToScreen(target) {
   screens.forEach((s) => s.classList.remove("active"));
@@ -84,6 +86,10 @@ function goToScreen(target) {
   if (target === "calendar" && !calendarLoaded) {
     calendarLoaded = true;
     window.initHijriCalendar && window.initHijriCalendar();
+  }
+  if (target === "nearby" && !nearbyLoaded) {
+    nearbyLoaded = true;
+    window.initNearby && window.initNearby();
   }
   if (target === "bookmarks") renderBookmarks();
 }
